@@ -23,7 +23,7 @@ app.listen(port,(req,res)=>{
 app.get('/all',async(req,res)=>{
     try{
         let connect = await sql.createConnection(dbConfig)
-        let [rows] = await connect.execute('SELECT * FROM studentlist')
+        let [rows] = await connect.execute('SELECT * FROM defaultdb.studentlist')
         res.status(200).send(rows)
     }catch(err){
         console.error(err)
@@ -34,7 +34,7 @@ app.post('/add',async(req,res)=>{
     const {name,age} = req.body
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('INSERT INTO studentlist (name,age) VALUES (?,?)',[name,age])
+        await connect.execute('INSERT INTO defaultdb.studentlist (name,age) VALUES (?,?)',[name,age])
         res.status(201).send(`inserted ${name,age} to database`)
     }catch(err){
         console.error(err)
@@ -45,7 +45,7 @@ app.post('/delete/:id',async(req,res)=>{
     const id = req.params.id
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('DELETE FROM studentlist WHERE id=?',[id])
+        await connect.execute('DELETE FROM defaultdb.studentlist WHERE id=?',[id])
         res.status(204).send('successfully deleted!')
     }catch(err){
         console.error(err,'error deleting')
@@ -57,7 +57,7 @@ app.post('/edit/:id',async(req,res)=>{
     const {name,age} = req.body
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('UPDATE studentlist (name,age) VALUES (?,?) WHERE id=?',[name,age,id])
+        await connect.execute('UPDATE defaultdb.studentlist (name,age) VALUES (?,?) WHERE id=?',[name,age,id])
         res.status(203).send('successfully updated')
     }catch(err){
         console.error(err)
