@@ -34,7 +34,7 @@ app.post('/add',async(req,res)=>{
     const {name,age} = req.body
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('INSERT INTO defaultdb.studentlist (name,age) VALUES (?,?)',[name,age])
+        await connect.execute('INSERT INTO defaultdb.studentlist (student_name,student_age) VALUES (?,?)',[name,age])
         res.status(201).send(`inserted ${name,age} to database`)
     }catch(err){
         console.error(err)
@@ -57,7 +57,7 @@ app.post('/edit/:id',async(req,res)=>{
     const {name,age} = req.body
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('UPDATE defaultdb.studentlist (name,age) VALUES (?,?) WHERE id=?',[name,age,id])
+        await connect.execute('UPDATE defaultdb.studentlist (student_name,student_age) VALUES (?,?) WHERE id=?',[name,age,id])
         res.status(203).send('successfully updated')
     }catch(err){
         console.error(err)
