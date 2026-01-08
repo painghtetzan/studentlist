@@ -57,7 +57,7 @@ app.post('/edit/:id',async(req,res)=>{
     const {name,age} = req.body
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('UPDATE defaultdb.studentlist (student_name,student_age) VALUES (?,?) WHERE id=?',[name,age,id])
+        await connect.execute('UPDATE defaultdb.studentlist SET student_name=?, student_age=? WHERE id=?',[name,age,id])
         res.status(203).send('successfully updated')
     }catch(err){
         console.error(err)
