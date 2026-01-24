@@ -43,7 +43,7 @@ app.post('/add',async(req,res)=>{
 
 
 
-app.post('/delete/:id',async(req,res)=>{
+app.delete('/delete/:id',async(req,res)=>{
     const id = req.params.id
     try{
         let connect = await sql.createConnection(dbConfig)
@@ -54,7 +54,7 @@ app.post('/delete/:id',async(req,res)=>{
     }
  })
 
-app.post('/edit/:id',async(req,res)=>{
+app.put('/edit/:id',async(req,res)=>{
     const id = req.params.id
     const {name,age,image} = req.body
     try{
