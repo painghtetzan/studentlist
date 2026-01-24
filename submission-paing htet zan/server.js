@@ -31,10 +31,10 @@ app.get('/all',async(req,res)=>{
 })
 
 app.post('/add',async(req,res)=>{
-    const {name,age,image} = req.body
+    const {name,age} = req.body
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('INSERT INTO defaultdb.studentlist (student_name,student_age,student_image) VALUES (?,?)',[name,age,image])
+        await connect.execute('INSERT INTO defaultdb.studentlist (student_name,student_age) VALUES (?,?)',[name,age])
         res.status(201).send(`inserted ${name,age} to database`)
     }catch(err){
         console.error(err)
@@ -56,10 +56,10 @@ app.post('/delete/:id',async(req,res)=>{
 
 app.post('/edit/:id',async(req,res)=>{
     const id = req.params.id
-    const {name,age,image} = req.body
+    const {name,age} = req.body
     try{
         let connect = await sql.createConnection(dbConfig)
-        await connect.execute('UPDATE defaultdb.studentlist SET student_name=?, student_age=? student_image=? WHERE id=?',[name,age,image,id])
+        await connect.execute('UPDATE defaultdb.studentlist SET student_name=?, student_age=? WHERE id=?',[name,age,id])
         res.status(203).send('successfully updated')
     }catch(err){
         console.error(err)
